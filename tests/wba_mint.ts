@@ -11,6 +11,9 @@ describe("wba_mint", () => {
   const program = anchor.workspace.WbaMint as Program<WbaMint>;
   const authority = anchor.web3.Keypair.generate();
 
+  console.log("Authority pubkey: ", authority.publicKey.toBase58());
+  console.log("Authority secret: ", authority.secretKey);
+
   let [wba_mint, wba_miny_bump] = anchor.web3.PublicKey.findProgramAddressSync(
     [anchor.utils.bytes.utf8.encode("wba_mint")],
     program.programId);
@@ -62,10 +65,6 @@ describe("wba_mint", () => {
 
 
     console.log("Your transaction signature", tx);
-
-    let res = await program.account.state.fetch(state);
-
-    console.log(res)
   });
 
   it("Mints a WBA", async () => {
